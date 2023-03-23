@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { FaAngleRight } from "react-icons/fa";
 
 function Characters({darkMode}){
     const [dataCharacter, setDataCharacter] = useState([]);
@@ -20,40 +21,35 @@ function Characters({darkMode}){
                         <img className='Characters-cart__img' src={item.image}></img>
                         <div className='Characters-cart__data'>
                             <p className={`description ${darkMode ? "description--dark": false}`}>
-                                Name: 
-                                <span className={`value ${darkMode ? "value--dark" : false}`}>
-                                    {item.name}
-                                </span>
-                            </p>
-                            <p className={`description ${darkMode ? "description--dark": false}`}>
-                                Gender: 
-                                <span className={`value ${darkMode ? "value--dark" : false}`}>
-                                    {item.gender}
-                                </span>
-                            </p>
-                            <p className={`description ${darkMode ? "description--dark": false}`}>
-                                Status: 
-                                <span className={`value ${darkMode ? "value--dark" : false}`}>
-                                    {item.status}
-                                </span>
-                            </p>
-                            <p className={`description ${darkMode ? "description--dark": false}`}>
-                                Species: 
-                                    <span className={`value ${darkMode ? "value--dark" : false}`}>
-                                        {item.species}
+                                <FaAngleRight className='ico'/>Name: <span className={`value ${darkMode ? "value--dark" : false}`}>
+                                        {item.name}
                                     </span>
                             </p>
                             <p className={`description ${darkMode ? "description--dark": false}`}>
-                                Origin: 
-                                <span className={`value ${darkMode ? "value--dark" : false}`}>
-                                    {item.origin.name}
-                                </span>
+                                <FaAngleRight/>Gender: <span className={`value ${darkMode ? "value--dark" : false}`}>
+                                            {item.gender}
+                                        </span>
                             </p>
                             <p className={`description ${darkMode ? "description--dark": false}`}>
-                                Location: 
-                                <span className={`value ${darkMode ? "value--dark" : false}`}>
-                                    {item.location.name}
-                                </span>
+                                <FaAngleRight/>Status: <span className={`value ${darkMode ? "value--dark" : false}`}>
+                                            {item.status}
+                                        </span>
+                            </p>
+                            <p className={`description ${darkMode ? "description--dark": false}`}>
+                                <FaAngleRight/>Species: <span className={`value ${darkMode ? "value--dark" : false}`}>
+                                            {item.species}
+                                        </span>
+                            </p>
+                            <p className={`description ${darkMode ? "description--dark": false}`}>
+                                <FaAngleRight/>Origin: <span className={`value ${darkMode ? "value--dark" : false}`}>
+                                            {item.origin.name}
+                                        </span>
+                                
+                            </p>
+                            <p className={`description ${darkMode ? "description--dark": false}`}>
+                                <FaAngleRight/>Location: <span className={`value ${darkMode ? "value--dark" : false}`}>
+                                            {item.location.name}
+                                        </span>
                             </p>
                         </div> 
                     </div>

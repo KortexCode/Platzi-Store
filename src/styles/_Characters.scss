@@ -42,6 +42,7 @@
         padding: 10px;
     }
     &__data .description{
+        display: flex;
         font-weight: 700;
         font-size: $lg;
         color: rgb(13, 4, 141);
