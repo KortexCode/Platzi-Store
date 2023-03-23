@@ -1,15 +1,23 @@
 import React, {useState} from 'react';
 
-function Header(){
-    const [darkMode, setDarkMode] = useState(false);
+function Header({darkMode, setDarkMode}){
+    const handleChangeMode = () => {  
+        setDarkMode(prevState => !prevState);
+        const body = document.querySelector("body");
+        const remove = body.classList.contains("dark-mode");
+        if(remove){
+            body.classList.remove("dark-mode");
+            return
+        }
+        body.classList.add("dark-mode");
+    }
     return(
         <div className='Header'>
-            <h3>ReactHooks</h3>
             <button 
-                className={darkMode ? "dark-mode" : "light-mode"} 
+                className={darkMode ? "Header-btn--dark" : "Header-btn"} 
                 type='button'
-                onClick={()=>{setDarkMode(prevState => !prevState)}}>
-                {darkMode ? "Dark Mode" : "Light Mode"}
+                onClick={handleChangeMode}>
+                {darkMode ? "Light Mode" : "Dark Mode"}
             </button>
         </div>
     )

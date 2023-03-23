@@ -1,0 +1,20 @@
+@import "./vars";
+
+@mixin base-btn{
+    padding: 10px;
+    margin-top: 10px;
+    margin-left: 20px;
+    border-radius: 5px;
+    font-size: $md;
+    font-weight: 600;
+}
+.Header-btn {
+    @include base-btn;
+    color:$white;
+    background-color: $darkMode;
+}
+.Header-btn--dark {
+    @include base-btn;
+    color:$darkMode;
+    background-color: $white;
+}
