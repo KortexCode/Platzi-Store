@@ -1,15 +1,75 @@
 import React, { useEffect, useState } from 'react';
-import { FaAngleRight } from "react-icons/fa";
+import { FaAngleRight, FaHeart } from "react-icons/fa";
+
+//Estado inicial
+const initialState = {
+    id: [],
+}
+//Action types
+const actionType = {
+    addToFavorite: false,
+}
+//ObjectReducer que devuelve todas las posibles acciones dentro de un objeto
+const objectReducer = (state, payload)=>({
+    [actionType.addToFavorite]:{
+      ...state,
+      id: [...state.id, payload],
+    },
+    [actionType.removeToFavorite]:{
+        ...state,
+        id: payload,
+      },
+});
+
+function reducer(state, action){
+    return objectReducer(state, action.payload)[action.type] || state;
+}
 
 function Characters({darkMode}){
+    //USE_STATE
     const [dataCharacter, setDataCharacter] = useState([]);
+    //USE_REDUCER
+    const [state, dispatch] = React.useReducer(reducer, initialState);
+    //Desestructuración del state
+    const {id} = state;
+    console.log("lista de id", id)
+
+    const handleAddtoFavorite = (id) => dispatch({
+        type: actionType.addToFavorite, 
+        payload: id,
+    });
+    const handleRemovetoFavorite = (newList) => dispatch({
+        type: actionType.removeToFavorite, 
+        payload: newList,
+    });
+
+    function mark(item){
+        //Filtrando ids si son duplicados o no
+        const doubleId = id.filter((id)=>{
+            return item.id == id;
+        });
+        //Remover el id repetido de favoritos y actualizar la lista
+        if(doubleId.length > 1){
+            const newList = id.filter((id)=>{
+                return id != doubleId[0];
+            })
+            handleRemovetoFavorite(newList);
+        }
+        //Marcar los iconos al agregar o remover de favoritos
+        if(doubleId.length == 0 || doubleId.length > 1)
+            return "black";
+        else
+            return "red";      
+    }
+  
+    //USE_EFFECT
     useEffect(()=>{
         const data = fetch("https://rickandmortyapi.com/api/character");
         Promise.resolve(data)
         .then((result)=> result.json())
         .then((character)=> {setDataCharacter(character.results)});
-    }, [])
-
+    }, []);
+   
     return(
         <div className='Characters'>
             <h2 className={`Characters__title ${darkMode ? "Characters__title--dark" : false}`}>
@@ -51,6 +111,13 @@ function Characters({darkMode}){
                                             {item.location.name}
                                         </span>
                             </p>
+                            <FaHeart size={20} style={{
+                                margin: "5px",
+                                position: "absolute",
+                                bottom: "5px",
+                                right: "3px",
+                                color: mark(item),
+                            }} onClick={()=>{handleAddtoFavorite(item.id)}} />
                         </div> 
                     </div>
                 ))}
