@@ -5,6 +5,20 @@
     grid-template-rows: repeat(20, auto);   
     gap: 16px; */
 }
+.Characters__input{
+    margin: 20px 0 20px 0;
+    margin-left: 20px;
+}
+.Characters__input label{
+    padding-right: 5px;
+    font-size: $lg;
+    font-weight: 700;
+    color: rgb(79, 103, 153);
+}
+.Characters__input input{
+    height: 30px;
+    padding: 3px;
+}
 .Characters__title{
     margin-bottom: 16px;
     font-weight: 700;

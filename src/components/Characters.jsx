@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { FaAngleRight, FaHeart } from "react-icons/fa";
 
 //Estado inicial
 const initialState = {
     id: [],
+    search: "",
 }
 //Action types
 const actionType = {
-    addToFavorite: false,
+    addToFavorite: "add to favorites",
+    removeToFavorite: "remove from favorites",
+    search: "make a search",
 }
 //ObjectReducer que devuelve todas las posibles acciones dentro de un objeto
 const objectReducer = (state, payload)=>({
@@ -18,10 +21,15 @@ const objectReducer = (state, payload)=>({
     [actionType.removeToFavorite]:{
         ...state,
         id: payload,
-      },
+    },
+    [actionType.search]:{
+        ...state,
+        search: payload,
+    },
 });
 
 function reducer(state, action){
+    console.log(action.type)
     return objectReducer(state, action.payload)[action.type] || state;
 }
 
@@ -31,7 +39,7 @@ function Characters({darkMode}){
     //USE_REDUCER
     const [state, dispatch] = React.useReducer(reducer, initialState);
     //Desestructuración del state
-    const {id} = state;
+    const {id, search} = state;
     console.log("lista de id", id)
 
     const handleAddtoFavorite = (id) => dispatch({
@@ -42,7 +50,16 @@ function Characters({darkMode}){
         type: actionType.removeToFavorite, 
         payload: newList,
     });
-
+    const handleSearch = ({target}) => dispatch({
+        type: actionType.search, 
+        payload: target.value,
+    });
+    //USE MEMO
+    const filteredCharacters = useMemo(()=> dataCharacter.filter((item)=>{
+            return item.name.toLowerCase().includes(search.toLowerCase())})
+    , [dataCharacter, search]);
+ 
+    //Función que modifica la vista de botón de favoritos
     function mark(item){
         //Filtrando ids si son duplicados o no
         const doubleId = id.filter((id)=>{
@@ -57,7 +74,7 @@ function Characters({darkMode}){
         }
         //Marcar los iconos al agregar o remover de favoritos
         if(doubleId.length == 0 || doubleId.length > 1)
-            return "black";
+            return "rgb(112, 112, 245)";
         else
             return "red";      
     }
@@ -72,11 +89,15 @@ function Characters({darkMode}){
    
     return(
         <div className='Characters'>
+            <div className='Characters__input'>
+                <label htmlFor="search">Search:</label>
+                <input type="text" id="search" onChange={handleSearch} placeholder="search some character"/>
+            </div>
             <h2 className={`Characters__title ${darkMode ? "Characters__title--dark" : false}`}>
                 Rick and Morty characters
             </h2>
             <div className='Characters__carts-container'>
-                {dataCharacter?.map((item)=>(
+                {filteredCharacters.map((item)=>(
                     <div key={item.id} className='Characters-cart'>
                         <img className='Characters-cart__img' src={item.image}></img>
                         <div className='Characters-cart__data'>
