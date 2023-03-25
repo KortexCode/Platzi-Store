@@ -1,5 +1,6 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { FaAngleRight, FaHeart } from "react-icons/fa";
+import { Search } from './Search';
 
 //Estado inicial
 const initialState = {
@@ -34,13 +35,18 @@ function reducer(state, action){
 }
 
 function Characters({darkMode}){
-    //USE_STATE
-    const [dataCharacter, setDataCharacter] = useState([]);
     //USE_REDUCER
     const [state, dispatch] = React.useReducer(reducer, initialState);
     //Desestructuración del state
     const {id, search} = state;
-    console.log("lista de id", id)
+    //USE_STATE
+    const [dataCharacter, setDataCharacter] = useState([]);
+    //USE MEMO
+    const filteredCharacters = useMemo(()=> dataCharacter.filter((item)=>{
+        return item.name.toLowerCase().includes(search.toLowerCase())})
+    , [dataCharacter, search]);
+    //USE REF
+    const inputSearch = useRef(null);
 
     const handleAddtoFavorite = (id) => dispatch({
         type: actionType.addToFavorite, 
@@ -50,14 +56,14 @@ function Characters({darkMode}){
         type: actionType.removeToFavorite, 
         payload: newList,
     });
-    const handleSearch = ({target}) => dispatch({
-        type: actionType.search, 
-        payload: target.value,
-    });
-    //USE MEMO
-    const filteredCharacters = useMemo(()=> dataCharacter.filter((item)=>{
-            return item.name.toLowerCase().includes(search.toLowerCase())})
-    , [dataCharacter, search]);
+    const handleSearch = useCallback(
+        ()=> dispatch({
+            type: actionType.search, 
+            payload: inputSearch.current.value,
+        }),[]
+    );
+   
+   
  
     //Función que modifica la vista de botón de favoritos
     function mark(item){
@@ -89,10 +95,7 @@ function Characters({darkMode}){
    
     return(
         <div className='Characters'>
-            <div className='Characters__input'>
-                <label htmlFor="search">Search:</label>
-                <input type="text" id="search" onChange={handleSearch} placeholder="search some character"/>
-            </div>
+            <Search handleSearch={handleSearch} inputSearch={inputSearch} />
             <h2 className={`Characters__title ${darkMode ? "Characters__title--dark" : false}`}>
                 Rick and Morty characters
             </h2>
