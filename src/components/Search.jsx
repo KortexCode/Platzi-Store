@@ -1,6 +1,6 @@
-import React, { forwardRef, useRef, memo } from 'react';
+import React, { forwardRef, memo, useRef } from 'react';
 
-const Search = memo( function({handleSearch, inputSearch}){
+const Search = memo( function({handleSearch}){
 
     //USE REF
     const inputSearch = useRef(null);
