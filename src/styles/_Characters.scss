@@ -28,19 +28,27 @@
     height: auto;
     box-shadow: 2px 2px 2px black;
     border: 1px solid black;
-    position: relative;
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto, auto, auto;
+    background-color: $white;
 
     &__img {
         width: 248px;
         height: 250px;
         object-fit: cover;
         border-radius: 8px;
-        border-top-left-radius:0px;
-        border-top-right-radius:0px;
+        border-top-left-radius:5px;
+        border-top-right-radius:5px;
+        overflow: hidden;
         justify-self: center;
     }
     &__data {
         padding: 10px;
+        margin: 8px;
+        border-radius: 8px;
+        background-color: rgba(231, 230, 230, 0.678);
     }
     &__data .description{
         /* display: inline-block; */
@@ -55,12 +63,12 @@
         font-size: $md;
         color: black;
     }
-    &__data .description--dark{
+   /*  &__data .description--dark{
         color: rgb(144, 139, 214);
-    }
-    &__data .description .value--dark{
+    } */
+   /*  &__data .description .value--dark{
         color: $white;
-    }
+    } */
  
 
 }

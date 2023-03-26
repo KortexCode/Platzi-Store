@@ -7,6 +7,7 @@ import { Search } from '../components/Search';
 import { useDataBase } from '../hooks/useDataBase';
 
 function PublicLayout(){
+    const Api = "https://rickandmortyapi.com/api/character";
     const {
         idInfavorites,
         darkMode,
@@ -15,7 +16,7 @@ function PublicLayout(){
         handleToggleDarkMode,
         handleSearch,
         filteredCharacters,
-    } = useDataBase();
+    } = useDataBase(Api);
 
     return(
         

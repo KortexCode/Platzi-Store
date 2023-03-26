@@ -68,17 +68,16 @@ function CharacterCarts(
                                 {item.location.name}
                             </span>
                 </p>
-                <FaHeart size={20} 
+            </div> 
+            <FaHeart size={20} 
                     style={{
                         margin: "5px",
-                        position: "absolute",
-                        bottom: "5px",
-                        right: "3px",
                         color: addToFavorite ? "red" : "rgb(112, 112, 245)",
+                        alignSelf: "end",
+                        justifySelf: "end",
                     }}  
                     onClick={verifyIdsToAddOrRemove} 
-                />
-            </div> 
+            />
         </div>
 
     )

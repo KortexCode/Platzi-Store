@@ -43,16 +43,16 @@ function reducer(state, action){
     return objectReducer(state, action.payload)[action.type] || state;
 }
 
-function useDataBase(){
+function useDataBase(Api){
     //USE_REDUCER
     const [state, dispatch] = React.useReducer(reducer, initialState);
+    //Desestructurando el estado
     const {idInfavorites, dataCharacter, darkMode, search} = state;
-
+    //Funciones manejadoras
     const handleShowDataApi = (arrayList) => dispatch({
         type: actionType.showDataFromApi, 
         payload: arrayList,
     });
-
     const handleAddtoFavorite = (id) => dispatch({
         type: actionType.addToFavorite, 
         payload: id,
@@ -61,10 +61,6 @@ function useDataBase(){
         type: actionType.removeToFavorite, 
         payload: newList,
     });
-    //USE MEMO
-    const filteredCharacters = useMemo(()=> dataCharacter.filter((item)=>{
-        return item.name.toLowerCase().includes(search.toLowerCase())})
-    , [dataCharacter, search]);
     const handleSearch = useCallback(
         (inputSearch)=> dispatch({
             type: actionType.makeSearch, 
@@ -75,10 +71,13 @@ function useDataBase(){
         type: actionType.toggleStyleMode, 
         payload: toggle,
     });
-
+    //USE MEMO
+    const filteredCharacters = useMemo(()=> dataCharacter.filter((item)=>{
+        return item.name.toLowerCase().includes(search.toLowerCase())})
+    , [dataCharacter, search]);
     //USE_EFFECT
     useEffect(()=>{
-        const data = fetch("https://rickandmortyapi.com/api/character");
+        const data = fetch(Api);
         Promise.resolve(data)
         .then((result)=> result.json())
         .then((characters)=> {handleShowDataApi(characters.results)});
