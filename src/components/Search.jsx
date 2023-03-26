@@ -1,7 +1,7 @@
 import React, { forwardRef, memo } from 'react';
 
 const Search = memo( function({handleSearch, inputSearch}){
-    console.log("favoritos")
+    
     return(
         <div className='Characters__input'>
             <label htmlFor="search">Search:</label>
