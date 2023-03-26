@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 
-function Header({darkMode, setDarkMode}){
+function Header({darkMode, handleToggleDarkMode}){
     const handleChangeMode = () => {  
-        setDarkMode(prevState => !prevState);
+        handleToggleDarkMode(!darkMode);
         const body = document.querySelector("body");
         const remove = body.classList.contains("dark-mode");
         if(remove){

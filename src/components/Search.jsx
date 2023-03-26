@@ -1,12 +1,15 @@
-import React, { forwardRef, memo } from 'react';
+import React, { forwardRef, useRef, memo } from 'react';
 
 const Search = memo( function({handleSearch, inputSearch}){
+
+    //USE REF
+    const inputSearch = useRef(null);
     
     return(
-        <div className='Characters__input'>
+        <div className='Search__input'>
             <label htmlFor="search">Search:</label>
             <input type="text" id="search" 
-                ref={inputSearch} onChange={handleSearch} 
+                ref={inputSearch} onChange={()=> handleSearch(inputSearch)} 
                 placeholder="search some character" 
             />
         </div>

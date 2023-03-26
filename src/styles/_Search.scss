@@ -1,0 +1,16 @@
+@import "./vars";
+
+.Search__input{
+    margin: 20px 0 20px 0;
+    margin-left: 20px;
+}
+.Search__input label{
+    padding-right: 5px;
+    font-size: $lg;
+    font-weight: 700;
+    color: rgb(79, 103, 153);
+}
+.Search__input input{
+    height: 30px;
+    padding: 3px;
+}
