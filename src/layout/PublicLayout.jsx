@@ -1,36 +1,10 @@
-import React, { useRef, useState } from 'react';
-import { IconContext } from 'react-icons';
-import { Characters } from '../components/Characters';
-import {CharacterCarts} from '@components/CharacterCarts';
-import { Header } from '../components/Header';
-import { Search } from '../components/Search';
-import { useDataBase } from '../hooks/useDataBase';
+import React from 'react';
+import { HomePage } from '../pages/HomePage';
 
 function PublicLayout(){
-    const Api = "https://rickandmortyapi.com/api/character";
-    const {
-        idInfavorites,
-        darkMode,
-        handleAddtoFavorite,
-        handleRemovetoFavorite,
-        handleToggleDarkMode,
-        handleSearch,
-        filteredCharacters,
-    } = useDataBase(Api);
-
+    
     return(
-        
-        <IconContext.Provider value={{color: "red"}}>
-            <Header darkMode={darkMode} handleToggleDarkMode={handleToggleDarkMode} />
-            <Search handleSearch={handleSearch} />
-            <Characters darkMode={darkMode}>     
-                {filteredCharacters.map((item)=>(<CharacterCarts handleAddtoFavorite={handleAddtoFavorite}
-                     item={item} idInfavorites={idInfavorites} darkMode={darkMode}
-                     handleRemovetoFavorite={handleRemovetoFavorite} key={item.id}
-                    />))}     
-            </Characters>
-        </IconContext.Provider>
-
+        <HomePage/>
     )
 }
 

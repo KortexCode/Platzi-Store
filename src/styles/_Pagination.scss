@@ -1,0 +1,21 @@
+@import "./vars";
+
+.Pagination {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+}
+.Pagination__info {
+    width: auto;
+   
+}
+.Pagination__btn-container {
+    width: auto;
+    display: flex;
+       
+}
+.Pagination__btn {
+    padding: 5px;
+    margin-left: 5px;
+}

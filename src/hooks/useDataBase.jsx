@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
 
+
 //Estado inicial
 const initialState = {
     idInfavorites: [],
@@ -81,7 +82,7 @@ function useDataBase(Api){
         Promise.resolve(data)
         .then((result)=> result.json())
         .then((characters)=> {handleShowDataApi(characters.results)});
-    }, []);
+    }, [Api]);
 
     //TESTING
     console.log("ids", idInfavorites);
