@@ -1,19 +1,41 @@
 @import "./vars";
 
-.Search__input{
-    margin: 20px 0 20px 0;
-    margin-left: 20px;
+.Search{
+    width: 100%;
+    margin: 20px 0 20px 0; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
-.Search__input label{
-    padding-right: 5px;
-    font-size: $lg;
-    font-weight: 700;
-    color: $light-blue;
-}
-.Search__input input{
-    height: 30px;
+.Search__input-container {
+    width: 250px;
     padding: 3px;
+    border: 1px solid black;
+    border-radius: 8px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $white;
 }
-.Search__input .Search--dark-mode {
+.Search__input-container input{
+    height: 40px;
+    padding: 5px;
+    border: none;  
+    outline: none;
+    
+}
+.Search__message {
+    margin-top: 10px;
+    font-size: $lg;
+    font-weight: 500;
+    color: $dark-title;
+}
+.Search__message--dark-mode {
+    font-size: $md;
+    font-weight: 400;
+    color: $white;
+}
+
+.Search__input-container .Search--dark-mode {
     color: $dark-title;
 }

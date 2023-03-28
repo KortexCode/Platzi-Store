@@ -9,8 +9,17 @@ import { useNavigate, useParams } from 'react-router-dom';
 function Pagination({darkMode}){
     const {numPage} = useParams();
     const [page, setPage] = useState(numPage ? parseInt(numPage): 1);
+    try{
+        if(!Number.isInteger(page)){
+            console.log("entro al error")
+            throw "url no exist";
+        }
+    }
+    catch(e){
+        
+    }
+    
     const navigate = useNavigate();
-    console.log("PaGE", page);
     
     const hanldeChangePageNext = () => { 
         let num = page+1;
@@ -36,7 +45,7 @@ function Pagination({darkMode}){
     return(
         <div className='Pagination'>
             <div className='Pagination__info'>
-                <p className={`${darkMode && "Pagination--dark-mode"}`} >Page {page} of 42</p>
+                <p className={`${darkMode && "Pagination--dark-mode"}`} >Page {numPage ? parseInt(numPage): 1} of 42</p>
             </div>
             <div className='Pagination__btn-container'>
                 <button className='Pagination__btn' 

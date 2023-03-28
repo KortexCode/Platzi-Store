@@ -13,9 +13,13 @@
         object-fit: cover;
     }
     &__name {
+        width: 100px;
         font-size: $md;
         font-weight: 400;
         text-align: center;
+    }
+    &__name--dark-mode {
+        color: $dark-title;
     }
 
 }

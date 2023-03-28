@@ -4,10 +4,12 @@ import { FaHeart } from "react-icons/fa";
 function CharacterCarts(
     {
         item, 
-        handleAddtoFavorite,
         idInfavorites,
+        darkMode,
+        openFavorites,
+        handleAddtoFavorite,
         handleRemovetoFavorite,
-        darkMode,  
+        handleToggleFavorites,  
     })
 {
     //Verificando si se encuentra en favoritos
@@ -22,16 +24,21 @@ function CharacterCarts(
         const idInList = idInfavorites.find((character)=>{
             return item.id == character.id;
         });
-        console.log("inlist", idInList)
         //Remover el id repetido de favoritos y actualizar la lista
         if(idInList) {
             const newArray = idInfavorites.filter((character)=>{
                 return character.id !== idInList.id;
             })
+            if(!newArray.length){
+                handleToggleFavorites(false);
+            }
             handleRemovetoFavorite(newArray);
             setAddToFavorite(prevState => !prevState);
         }
         else{
+            if(!openFavorites){
+                handleToggleFavorites(true);
+            }
             handleAddtoFavorite(item);
             setAddToFavorite(prevState => !prevState);
         }   

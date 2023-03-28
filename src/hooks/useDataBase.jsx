@@ -7,6 +7,7 @@ const initialState = {
     search: "",
     dataCharacter: [],
     darkMode: false,
+    openFavorites: false,
 }
 //Action types
 const actionType = {
@@ -15,6 +16,7 @@ const actionType = {
     removeToFavorite: "remove from favorites",
     makeSearch: "make a search",
     toggleStyleMode: "toggle style move",
+    toggleOpenFavorites: "Open favorite section",
 }
 //ObjectReducer que devuelve todas las posibles acciones dentro de un objeto
 const objectReducer = (state, payload)=>({
@@ -38,6 +40,10 @@ const objectReducer = (state, payload)=>({
         ...state,
         search: payload,
     },
+    [actionType.toggleOpenFavorites]:{
+        ...state,
+        openFavorites: payload,
+    },
 });
 
 function reducer(state, action){
@@ -48,7 +54,7 @@ function useDataBase(Api){
     //USE_REDUCER
     const [state, dispatch] = React.useReducer(reducer, initialState);
     //Desestructurando el estado
-    const {idInfavorites, dataCharacter, darkMode, search} = state;
+    const {idInfavorites, dataCharacter, darkMode, search, openFavorites} = state;
     //Funciones manejadoras
     const handleShowDataApi = (arrayList) => dispatch({
         type: actionType.showDataFromApi, 
@@ -57,6 +63,10 @@ function useDataBase(Api){
     const handleAddtoFavorite = (id) => dispatch({
         type: actionType.addToFavorite, 
         payload: id,
+    });
+    const handleToggleFavorites = (state) => dispatch({
+        type: actionType.toggleOpenFavorites, 
+        payload: state,
     });
     const handleRemovetoFavorite = (newList) => dispatch({
         type: actionType.removeToFavorite, 
@@ -91,11 +101,13 @@ function useDataBase(Api){
         dataCharacter,
         darkMode,
         search,
+        openFavorites,
+        filteredCharacters,
         handleAddtoFavorite,
         handleRemovetoFavorite,
         handleToggleDarkMode,
         handleSearch,
-        filteredCharacters,
+        handleToggleFavorites,
     }
 }
 

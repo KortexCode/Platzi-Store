@@ -16,29 +16,35 @@ function HomePage(){
     const {
         idInfavorites,
         darkMode,
+        openFavorites,
+        filteredCharacters,
+        search,
         handleAddtoFavorite,
         handleRemovetoFavorite,
         handleToggleDarkMode,
         handleSearch,
-        filteredCharacters,
+        handleToggleFavorites,
     } = useDataBase(Api);
-    console.log(filteredCharacters)
+ 
     return(
         <IconContext.Provider value={{
             color: "rgb(7, 7, 116)",
             size: 20,
             }}>
             <Header darkMode={darkMode} handleToggleDarkMode={handleToggleDarkMode} />  
-            <Search handleSearch={handleSearch} darkMode={darkMode} />
+            <Search handleSearch={handleSearch} darkMode={darkMode} 
+                filteredCharacters={filteredCharacters} search={search}
+            />
             <Pagination darkMode={darkMode} />
-            <AddedToFavorites>
+            {openFavorites && <AddedToFavorites darkMode={darkMode}>
                 {idInfavorites.map(item => <CharacterInFavorites item={item}
-                key={item.id} />)}
-            </AddedToFavorites>  
+                key={item.id} darkMode={darkMode}/>)}
+            </AddedToFavorites>  }
             <Characters darkMode={darkMode}>     
                 {filteredCharacters.map((item)=>(<CharacterCarts handleAddtoFavorite={handleAddtoFavorite}
                      item={item} idInfavorites={idInfavorites} darkMode={darkMode}
                      handleRemovetoFavorite={handleRemovetoFavorite} key={item.id}
+                     handleToggleFavorites={handleToggleFavorites} openFavorites={openFavorites}
                     />))}     
             </Characters>
         </IconContext.Provider>

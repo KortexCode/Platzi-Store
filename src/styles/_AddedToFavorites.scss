@@ -1,20 +1,32 @@
 .AddedToFavorites{
-    margin-top: 16px;
-    margin-bottom: 16px;
+    margin-top: 24px;
+    margin-bottom: 24px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 .AddedToFavorites__title {
-    font-size: 28px;
+    font-size: 2.8rem;
     font-weight: 700;
     color: $light-title;
 }
+.AddedToFavorites__title--dark-mode {
+    color: $white;
+}
 .AddedToFavorites__container {
-    width: 100%;
+    width: 90%;
     margin-top: 10px;
-    padding: 0 10px 0 10px;
+    padding: 15px 10px 10px 10px;
+    border-radius: 8px;
     display: flex;
-    justify-content: center;
-    /* overflow-x: scroll; */
+    background-color: rgba(79, 102, 153, 0.267);
+   /*  justify-content: center; */
+    overflow-x: scroll;
+}
+.AddedToFavorites__container::-webkit-scrollbar {
+    height: 8px;
+}
+.AddedToFavorites__container::-webkit-scrollbar-thumb {
+   background-color: $dark-title;
+   border-radius: 8px;
 }

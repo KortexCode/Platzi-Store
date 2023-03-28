@@ -1,5 +1,6 @@
 .Characters {
-    width: 100%;
+    width: 90%;
+    margin: 0 auto;
     margin-top: 10px;
     /* display: grid;
     grid-template-rows: repeat(20, auto);   
@@ -49,7 +50,8 @@
         padding: 15px;
         margin: 0 10px 0 10px;
         border-radius: 8px;
-        background-color: rgba(233, 234, 247, 0.568);
+       /*  background-color: rgba(233, 234, 247, 0.568); */
+        background-color: rgba(79, 102, 153, 0.274);
     }
     &__data .description{
         /* display: inline-block; */
@@ -64,14 +66,6 @@
         font-size: $md;
         color: black;
     }
-   /*  &__data .description--dark{
-        color: rgb(144, 139, 214);
-    } */
-   /*  &__data .description .value--dark{
-        color: $white;
-    } */
- 
-
 }
 
 @media(min-width: 640px){
