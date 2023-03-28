@@ -3,19 +3,30 @@
 .Pagination {
     width: 100%;
     height: auto;
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    gap: 10px;
 }
 .Pagination__info {
-    width: auto;
-   
+    width: auto; 
+    margin-left: 20px;
+}
+.Pagination__info p{
+    width: auto; 
+    font-size: $lg;
+    font-weight: 400;
+    color: $light-blue;
 }
 .Pagination__btn-container {
     width: auto;
-    display: flex;
-       
+    justify-self: center;
+    display: flex;    
 }
 .Pagination__btn {
     padding: 5px;
     margin-left: 5px;
+}
+.Pagination .Pagination--dark-mode {
+    color: $dark-title;
 }

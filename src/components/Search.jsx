@@ -1,13 +1,13 @@
 import React, { forwardRef, memo, useRef } from 'react';
 
-const Search = memo( function({handleSearch}){
+const Search = memo( function({handleSearch, darkMode}){
 
     //USE REF
     const inputSearch = useRef(null);
     
     return(
         <div className='Search__input'>
-            <label htmlFor="search">Search:</label>
+            <label className={`${darkMode && "Search--dark-mode"}`} htmlFor="search">Search:</label>
             <input type="text" id="search" 
                 ref={inputSearch} onChange={()=> handleSearch(inputSearch)} 
                 placeholder="search some character" 

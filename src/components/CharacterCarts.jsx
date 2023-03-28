@@ -10,24 +10,29 @@ function CharacterCarts(
         darkMode,  
     })
 {
-    const [addToFavorite, setAddToFavorite] = useState(false);
+    //Verificando si se encuentra en favoritos
+    const idInList = idInfavorites.find((character)=>{
+        return item.id == character.id;
+    });
+    const [addToFavorite, setAddToFavorite] = useState(idInList ? true : false);
 
     //Función que modifica la vista de botón de favoritos
     const verifyIdsToAddOrRemove = ()=>{
         //Filtrando ids si son duplicados o no
-        const idInList = idInfavorites.find((id)=>{
-            return item.id == id;
+        const idInList = idInfavorites.find((character)=>{
+            return item.id == character.id;
         });
+        console.log("inlist", idInList)
         //Remover el id repetido de favoritos y actualizar la lista
         if(idInList) {
-            const newArray = idInfavorites.filter((id)=>{
-                return id !== idInList;
+            const newArray = idInfavorites.filter((character)=>{
+                return character.id !== idInList.id;
             })
             handleRemovetoFavorite(newArray);
             setAddToFavorite(prevState => !prevState);
         }
         else{
-            handleAddtoFavorite(item.id);
+            handleAddtoFavorite(item);
             setAddToFavorite(prevState => !prevState);
         }   
     }

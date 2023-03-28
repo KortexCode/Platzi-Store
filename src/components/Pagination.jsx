@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
-import { FaAngleRight, FaAngleLeft } from "react-icons/fa";
+import { 
+    FaAngleRight, 
+    FaAngleLeft, 
+    FaAngleDoubleLeft,
+    FaAngleDoubleRight  } from "react-icons/fa";
 import { useNavigate, useParams } from 'react-router-dom';
 
-function Pagination(){
+function Pagination({darkMode}){
     const {numPage} = useParams();
     const [page, setPage] = useState(numPage ? parseInt(numPage): 1);
     const navigate = useNavigate();
@@ -32,16 +36,22 @@ function Pagination(){
     return(
         <div className='Pagination'>
             <div className='Pagination__info'>
-                <p>Page {numPage} </p>
+                <p className={`${darkMode && "Pagination--dark-mode"}`} >Page {page} of 42</p>
             </div>
             <div className='Pagination__btn-container'>
                 <button className='Pagination__btn' 
-                    type='button' onClick={()=>hanldeChangeLastOrFirtsPage(1)}>{"<<"} 
+                    type='button' onClick={()=>hanldeChangeLastOrFirtsPage(1)}>
+                        <FaAngleDoubleLeft /> 
                 </button>
-                <button className='Pagination__btn' type='button' onClick={hanldeChangePageBack}><FaAngleLeft/></button>
-                <button className='Pagination__btn' type='button' onClick={hanldeChangePageNext}><FaAngleRight/></button>
+                <button className='Pagination__btn' type='button' onClick={hanldeChangePageBack}>
+                    <FaAngleLeft />
+                </button>
+                <button className='Pagination__btn' type='button' onClick={hanldeChangePageNext}>
+                    <FaAngleRight/>
+                </button>
                 <button className='Pagination__btn' 
-                    type='button' onClick={()=>hanldeChangeLastOrFirtsPage(42)}>{">>"} 
+                    type='button' onClick={()=>hanldeChangeLastOrFirtsPage(42)}>
+                        <FaAngleDoubleRight />
                 </button>
             </div>      
         </div>

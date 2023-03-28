@@ -8,9 +8,12 @@
     padding-right: 5px;
     font-size: $lg;
     font-weight: 700;
-    color: rgb(79, 103, 153);
+    color: $light-blue;
 }
 .Search__input input{
     height: 30px;
     padding: 3px;
+}
+.Search__input .Search--dark-mode {
+    color: $dark-title;
 }
