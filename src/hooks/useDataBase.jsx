@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
 
-
-//Estado inicial
+//Estado inicial de las variables-estado de la App.
 const initialState = {
     idInfavorites: [],
     search: "",
@@ -20,7 +19,7 @@ const actionType = {
     toggleOpenFavorites: "Open favorite section",
     showErrorMessage: "Show error message",
 }
-//ObjectReducer que devuelve todas las posibles acciones dentro de un objeto
+//ObjectReducer que contiene todas las posibles acciones dentro de un objeto
 const objectReducer = (state, payload)=>({
     [actionType.showDataFromApi]:{
         ...state,
@@ -51,18 +50,18 @@ const objectReducer = (state, payload)=>({
         showPageNotExist: payload,
     },
 });
-
+//Función reductora
 function reducer(state, action){
     return objectReducer(state, action.payload)[action.type] || state;
 }
-
+//Custom Hook que maneja la mayor parte de la lógica de datos
 function useDataBase(Api){
     //USE_REDUCER
     const [state, dispatch] = React.useReducer(reducer, initialState);
     //Desestructurando el estado
     const {idInfavorites, dataCharacter, 
         darkMode, search, openFavorites, showPageNotExist} = state;
-    //Funciones manejadoras
+    //FUNCIONES MANEJADORAS
     const handleShowDataApi = (arrayList) => dispatch({
         type: actionType.showDataFromApi, 
         payload: arrayList,
@@ -101,34 +100,26 @@ function useDataBase(Api){
     
     //USE_EFFECT
     useEffect( ()=>{
-        let dataError = true;
-        /* const data = fetch(Api); */
         (async function dataResponse(dataApi){
             
             const result = await fetch(dataApi);
+            //Si la respuesta es negativa, evitamos actualizar datos de consulta,
+            //en cambio, se actualiza estado de mensaje de error.
             if(!result.ok){
-                console.log("first", result.ok)
-                /* handleShowDataApi([]) */
+                //Este estado indicará que no hubo resultados 
                 handleErrorMessage(true);
                 return;
             }
-            console.log("se hizo consulta")
-            const characters = await result.json();
-            console.log("respues", characters )
+            //Si la consulta es exitosa
+            const characters = await result.json();   
+            //Si antes hubo error en los resultados...
             if(showPageNotExist){
+                //retornamos a false el estadi showPageNotExist
                 handleErrorMessage(false);
             }
+            //Se actualiza el estado con almacena los datos de la Api
             handleShowDataApi(characters.results)  
-        })(Api);
-
-        if(!dataError){
-            throw {
-                status:"404",
-                statusText:"Data Not Found",
-            }
-        }
-        
-       
+        })(Api);  
     }, [Api]);
   
     return {

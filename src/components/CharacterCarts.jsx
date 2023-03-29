@@ -16,6 +16,7 @@ function CharacterCarts(
     const idInList = idInfavorites.find((character)=>{
         return item.id == character.id;
     });
+    //De esta menera recordamos si esta carta de personas fue agregada a favoritos anteriormente
     const [addToFavorite, setAddToFavorite] = useState(idInList ? true : false);
 
     //Función que modifica la vista de botón de favoritos
@@ -35,6 +36,7 @@ function CharacterCarts(
             handleRemovetoFavorite(newArray);
             setAddToFavorite(prevState => !prevState);
         }
+        //De lo contrario será agregado.
         else{
             if(!openFavorites){
                 handleToggleFavorites(true);

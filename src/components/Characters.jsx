@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Characters({children, darkMode}){
+function Characters({children}){
    
     return(
         <div className='Characters'>

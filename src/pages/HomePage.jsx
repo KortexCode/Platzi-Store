@@ -10,10 +10,23 @@ import { Pagination } from '../components/Pagination';
 import { AddedToFavorites } from '../components/AddedToFavoritees';
 import { CharacterInFavorites } from '../components/CharacterInFavorites';
 
+//La API devuelve datos su si valor para la key page está entre 0 y 42.
+//Menor a 0 devuelve error, mayor a 42 devuelve error.
+//pero si recibe un valor de numero acompañador de letras, ejemplo: 3t o 44tr, igual
+//devolverá la página 1.
+
+//Ya que la paginación dede ser entre 1 y 42, se acondicionan las respuestas de la API
+//antes de enviar los datos al custom hook useDataBase()
+
 function HomePage(){
     const {numPage} = useParams();
-    let Api = `https://rickandmortyapi.com/api/character?page=${numPage}`;
+    //El parámentro de navegación servirá para devolver datos de la Api
+    // egún el valor del key página
+    let Api = `https://rickandmortyapi.com/api/character?page=${numPage ? numPage : 1}`;
+    //Debemos validar que el parámetro de navegación posee un valor acorde a los solicitados
+    //por la Api para devolver datos por paginación
     if(numPage){
+        //
         const arrayNumPage = [...numPage];
         const valid = arrayNumPage.some((item)=>{
             const num = parseInt(item);
@@ -47,6 +60,7 @@ function HomePage(){
             <Header darkMode={darkMode} handleToggleDarkMode={handleToggleDarkMode} />  
             <Search handleSearch={handleSearch} darkMode={darkMode} 
                         filteredCharacters={filteredCharacters} search={search}
+                        showPageNotExist={showPageNotExist}
             />
             <Pagination darkMode={darkMode} />
             {openFavorites && 
@@ -55,9 +69,9 @@ function HomePage(){
                     key={item.id} darkMode={darkMode}/>)}
                 </AddedToFavorites>
             }
-            <h2 className={`Characters__title ${darkMode ? "Characters__title--dark" : false}`}>
+            <h1 className={`Characters__title ${darkMode ? "Characters__title--dark" : false}`}>
                     Rick and Morty characters
-            </h2>
+            </h1>
             {showPageNotExist && 
                 <p className={`error-message ${darkMode && "error-message--dark-mode"}`}>
                     Page not exist, navigate beetwen page 1 to 42

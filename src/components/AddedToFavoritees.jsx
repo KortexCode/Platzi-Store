@@ -2,7 +2,6 @@ import React from 'react';
 
 function AddedToFavorites({children, darkMode}){
 
-    
     return(
         <section className='AddedToFavorites'>
             <h2 className={`AddedToFavorites__title ${darkMode && 'AddedToFavorites__title--dark-mode'}`} >
