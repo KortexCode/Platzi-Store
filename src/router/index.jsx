@@ -9,7 +9,7 @@ const router = createHashRouter(
         
         <Route path="/" element={<PublicLayout/>} errorElement={<ErrorPage/>} >
             <Route index={true} path="/page" element={<HomePage/>}/>
-            <Route path="/page/:numPage" element={<HomePage/>}/>
+            <Route path="/page/:numPage/" element={<HomePage/>}/>
         </Route>
           
        

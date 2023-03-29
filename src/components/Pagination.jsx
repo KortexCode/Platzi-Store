@@ -7,22 +7,12 @@ import {
 import { useNavigate, useParams } from 'react-router-dom';
 
 function Pagination({darkMode}){
-    const {numPage} = useParams();
-    const [page, setPage] = useState(numPage ? parseInt(numPage): 1);
-    try{
-        if(!Number.isInteger(page)){
-            console.log("entro al error")
-            throw "url no exist";
-        }
-    }
-    catch(e){
-        
-    }
-    
+    const {numPage} = useParams();  
+    const [page, setPage] = useState(numPage ? parseInt(numPage): 1); 
     const navigate = useNavigate();
     
     const hanldeChangePageNext = () => { 
-        let num = page+1;
+        let num = parseInt(numPage)+1;
         if(num <= 42){
             setPage(num);
             navigate(`page/${num}`)

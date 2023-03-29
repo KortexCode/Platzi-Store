@@ -12,13 +12,26 @@ import { CharacterInFavorites } from '../components/CharacterInFavorites';
 
 function HomePage(){
     const {numPage} = useParams();
-    const Api = `https://rickandmortyapi.com/api/character?page=${numPage}`;
+    let Api = `https://rickandmortyapi.com/api/character?page=${numPage}`;
+    if(numPage){
+        const arrayNumPage = [...numPage];
+        const valid = arrayNumPage.some((item)=>{
+            const num = parseInt(item);
+            return Number.isNaN(num);
+    
+        })
+        if(valid || numPage < 1){
+           Api = "https://rickandmortyapi.com/api/character?page=1000";
+        }
+    }
+
     const {
         idInfavorites,
         darkMode,
         openFavorites,
         filteredCharacters,
         search,
+        showPageNotExist,
         handleAddtoFavorite,
         handleRemovetoFavorite,
         handleToggleDarkMode,
@@ -33,20 +46,33 @@ function HomePage(){
             }}>
             <Header darkMode={darkMode} handleToggleDarkMode={handleToggleDarkMode} />  
             <Search handleSearch={handleSearch} darkMode={darkMode} 
-                filteredCharacters={filteredCharacters} search={search}
+                        filteredCharacters={filteredCharacters} search={search}
             />
             <Pagination darkMode={darkMode} />
-            {openFavorites && <AddedToFavorites darkMode={darkMode}>
-                {idInfavorites.map(item => <CharacterInFavorites item={item}
-                key={item.id} darkMode={darkMode}/>)}
-            </AddedToFavorites>  }
-            <Characters darkMode={darkMode}>     
-                {filteredCharacters.map((item)=>(<CharacterCarts handleAddtoFavorite={handleAddtoFavorite}
-                     item={item} idInfavorites={idInfavorites} darkMode={darkMode}
-                     handleRemovetoFavorite={handleRemovetoFavorite} key={item.id}
-                     handleToggleFavorites={handleToggleFavorites} openFavorites={openFavorites}
-                    />))}     
-            </Characters>
+            {openFavorites && 
+                <AddedToFavorites darkMode={darkMode}>
+                    {idInfavorites.map(item => <CharacterInFavorites item={item}
+                    key={item.id} darkMode={darkMode}/>)}
+                </AddedToFavorites>
+            }
+            <h2 className={`Characters__title ${darkMode ? "Characters__title--dark" : false}`}>
+                    Rick and Morty characters
+            </h2>
+            {showPageNotExist && 
+                <p className={`error-message ${darkMode && "error-message--dark-mode"}`}>
+                    Page not exist, navigate beetwen page 1 to 42
+                </p>
+            }
+            {!showPageNotExist && ( 
+                <Characters darkMode={darkMode}>     
+                    {filteredCharacters?.map((item)=>(<CharacterCarts handleAddtoFavorite={handleAddtoFavorite}
+                        item={item} idInfavorites={idInfavorites} darkMode={darkMode}
+                        handleRemovetoFavorite={handleRemovetoFavorite} key={item.id}
+                        handleToggleFavorites={handleToggleFavorites} openFavorites={openFavorites}
+                        />))
+                    }     
+                </Characters>  
+            )} 
         </IconContext.Provider>
     )
 

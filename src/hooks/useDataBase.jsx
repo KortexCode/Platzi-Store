@@ -8,6 +8,7 @@ const initialState = {
     dataCharacter: [],
     darkMode: false,
     openFavorites: false,
+    showPageNotExist:false,
 }
 //Action types
 const actionType = {
@@ -17,6 +18,7 @@ const actionType = {
     makeSearch: "make a search",
     toggleStyleMode: "toggle style move",
     toggleOpenFavorites: "Open favorite section",
+    showErrorMessage: "Show error message",
 }
 //ObjectReducer que devuelve todas las posibles acciones dentro de un objeto
 const objectReducer = (state, payload)=>({
@@ -44,6 +46,10 @@ const objectReducer = (state, payload)=>({
         ...state,
         openFavorites: payload,
     },
+    [actionType.showErrorMessage]:{
+        ...state,
+        showPageNotExist: payload,
+    },
 });
 
 function reducer(state, action){
@@ -54,7 +60,8 @@ function useDataBase(Api){
     //USE_REDUCER
     const [state, dispatch] = React.useReducer(reducer, initialState);
     //Desestructurando el estado
-    const {idInfavorites, dataCharacter, darkMode, search, openFavorites} = state;
+    const {idInfavorites, dataCharacter, 
+        darkMode, search, openFavorites, showPageNotExist} = state;
     //Funciones manejadoras
     const handleShowDataApi = (arrayList) => dispatch({
         type: actionType.showDataFromApi, 
@@ -82,20 +89,48 @@ function useDataBase(Api){
         type: actionType.toggleStyleMode, 
         payload: toggle,
     });
+    const handleErrorMessage = (message) => dispatch({
+        type: actionType.showErrorMessage, 
+        payload: message,
+    });
     //USE MEMO
     const filteredCharacters = useMemo(()=> dataCharacter.filter((item)=>{
         return item.name.toLowerCase().includes(search.toLowerCase())})
     , [dataCharacter, search]);
+   
+    
     //USE_EFFECT
-    useEffect(()=>{
-        const data = fetch(Api);
-        Promise.resolve(data)
-        .then((result)=> result.json())
-        .then((characters)=> {handleShowDataApi(characters.results)});
-    }, [Api]);
+    useEffect( ()=>{
+        let dataError = true;
+        /* const data = fetch(Api); */
+        (async function dataResponse(dataApi){
+            
+            const result = await fetch(dataApi);
+            if(!result.ok){
+                console.log("first", result.ok)
+                /* handleShowDataApi([]) */
+                handleErrorMessage(true);
+                return;
+            }
+            console.log("se hizo consulta")
+            const characters = await result.json();
+            console.log("respues", characters )
+            if(showPageNotExist){
+                handleErrorMessage(false);
+            }
+            handleShowDataApi(characters.results)  
+        })(Api);
 
-    //TESTING
-    console.log("ids", idInfavorites);
+        if(!dataError){
+            throw {
+                status:"404",
+                statusText:"Data Not Found",
+            }
+        }
+        
+       
+    }, [Api]);
+  
     return {
         idInfavorites,
         dataCharacter,
@@ -103,6 +138,7 @@ function useDataBase(Api){
         search,
         openFavorites,
         filteredCharacters,
+        showPageNotExist,
         handleAddtoFavorite,
         handleRemovetoFavorite,
         handleToggleDarkMode,
