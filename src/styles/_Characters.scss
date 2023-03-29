@@ -7,6 +7,8 @@
     gap: 16px; */
 }
 .Characters__title{
+    width: 90%;
+    margin: 0 auto;
     margin-top: 24px;
     margin-bottom: 16px;
     font-weight: 700;
@@ -38,8 +40,8 @@
     background-color: $white;
 
     &__img {
-        width: 248px;
-        height: 250px;
+        width: 228px;
+        height: 230px;
         object-fit: cover;
         border-radius: 8px;
         border-top-left-radius:5px;

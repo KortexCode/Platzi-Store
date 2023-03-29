@@ -3,12 +3,12 @@ import { useParams } from 'react-router-dom';
 import { IconContext } from 'react-icons';
 import { Characters } from '../components/Characters';
 import {CharacterCarts} from '@components/CharacterCarts';
-import { Header } from '../components/Header';
-import { Search } from '../components/Search';
+import { Header } from '@components/Header';
+import { Search } from '@components/Search';
 import { useDataBase } from '../hooks/useDataBase';
-import { Pagination } from '../components/Pagination';
-import { AddedToFavorites } from '../components/AddedToFavoritees';
-import { CharacterInFavorites } from '../components/CharacterInFavorites';
+import { Pagination } from '@components/Pagination';
+import { AddedToFavorites } from '@components/AddedToFavoritees';
+import { CharacterInFavorites } from '@components/CharacterInFavorites';
 
 //La API devuelve datos su si valor para la key page está entre 0 y 42.
 //Menor a 0 devuelve error, mayor a 42 devuelve error.

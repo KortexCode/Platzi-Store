@@ -1,8 +1,8 @@
 import React from 'react'
 import { createHashRouter, createRoutesFromElements, Route } from "react-router-dom";
 import { PublicLayout } from "../layout/PublicLayout";
-import { ErrorPage } from '../pages/ErrorPage';
-import { HomePage } from '../pages/HomePage';
+import { ErrorPage } from '@pages/ErrorPage';
+import { HomePage } from '@pages/HomePage';
 
 const router = createHashRouter(
     createRoutesFromElements(

@@ -16,7 +16,6 @@ module.exports = {
         path: path.resolve(__dirname, "dist"),
         filename:"[name].[contenthash].js", //nombre del archivo optimizado(el index.js)
         publicPath:"./",//de manera manual esta es el "src" del js y css dentro del index.html
-        assetModuleFilename: 'assets/images/[hash][ext]',
     },
     mode:"production",
     devtool:"source-map",
@@ -24,11 +23,8 @@ module.exports = {
         extensions:[".js", ".jsx"],
         alias: {
             "@pages": path.resolve(__dirname, "src/pages"),
-            "@routes": path.resolve(__dirname, "src/routes"),
             "@components": path.resolve(__dirname, "src/components"),
             "@styles": path.resolve(__dirname, "src/styles"),
-            "@logos": path.resolve(__dirname, "src/assets/logo"),
-            "@icons": path.resolve(__dirname, "src/assets/icons"),
         }
     },
     module: {
